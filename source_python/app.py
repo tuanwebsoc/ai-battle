@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, session
 from constant import Constant
-
+from utils import place_ship, random_x, random_y, is_ocean
 
 app = Flask(__name__)
 app.secret_key="my secret key"
@@ -29,6 +29,7 @@ def invite():
     ships = request.json["ships"]
 
     print(type(ships), ships)
+
     # store init game informations to session
     session[Constant.SESSION_KEY_BOARD_WIDTH] = board_width
     session[Constant.SESSION_KEY_BOARD_HEIGHT] = board_height
@@ -47,14 +48,24 @@ def place_ships():
     board_height = session[Constant.SESSION_KEY_BOARD_HEIGHT]
     ships = session[Constant.SESSION_KEY_INVITE_SHIPS]
     print(type(ships), ships)
+
+    #init board
+    #TODO
+    board = []
+    for x in range(Constant.DEFAULT_BOARD_HEIGHT):
+        board.append([Constant.OCEAN] * Constant.DEFAULT_BOARD_WIDTH)
+
     ret_ships = []
     for ship in ships:
         for quantity in range(ship["quantity"]):
             ret_ship = {}
             ret_ship["type"] = ship["type"]
-            ret_ship["coordinates"] = [[1,2], [2,1]]
+            ship_x = 0
+            ship_y = 0
+            shipxy = place_ship(ship, board, ship_x, ship_y)
+            ret_ship["coordinates"] = [shipxy["ship_x"], shipxy["ship_y"]]
             ret_ships.append(ret_ship)
-    #TODO
+    print(board)
 
     return jsonify(ret_ships)
 

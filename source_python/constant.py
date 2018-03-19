@@ -11,4 +11,9 @@ class Constant:
     SESSION_KEY_BOARD_WIDTH = "SESSION_KEY_BOARD_WIDTH"
     SESSION_KEY_BOARD_HEIGHT = "SESSION_KEY_BOARD_HEIGHT"
     SESSION_KEY_INVITE_SHIPS = "SESSION_KEY_INVITE_SHIPS"
+    OCEAN = "O"
+    FIRE = "X"
+    HIT = "*"
+    SHIPS_INFO = {"CV": {"width": 4, "height": 2}, "BB": {"width": 4, "height": 1},
+                  "CA": {"width": 2, "height": 2}, "DD": {"width": 2, "height": 1}, "OR": {"width": 3, "height": 1}}
 
